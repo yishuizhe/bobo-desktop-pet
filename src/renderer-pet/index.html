@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>波波</title>
+    <link rel="stylesheet" href="./pet.css" />
+  </head>
+  <body>
+    <div id="stage">
+      <div id="bubble" class="hidden"></div>
+      <svg id="creature" viewBox="0 0 200 200" width="200" height="200">
+        <defs>
+          <linearGradient id="bodyGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop id="bodyGradTop" offset="0" stop-color="#9eeac9" />
+            <stop id="bodyGradBottom" offset="1" stop-color="#6bcfa5" />
+          </linearGradient>
+        </defs>
+
+        <!-- sprout antenna -->
+        <path d="M100 62 Q96 45 100 33" stroke="#6bcfa5" stroke-width="4" fill="none" stroke-linecap="round" />
+        <ellipse cx="100" cy="28" rx="9" ry="11" fill="#bdf0a0" />
+        <ellipse cx="97" cy="24" rx="3" ry="4" fill="#e4ffd6" opacity="0.8" />
+
+        <!-- ears -->
+        <circle id="earL" cx="62" cy="58" r="20" fill="#6bcfa5" />
+        <circle id="earR" cx="138" cy="58" r="20" fill="#6bcfa5" />
+        <circle cx="62" cy="58" r="11" fill="#ffb6c1" />
+        <circle cx="138" cy="58" r="11" fill="#ffb6c1" />
+
+        <!-- feet -->
+        <ellipse id="footL" cx="68" cy="179" rx="19" ry="11" fill="#5cbd95" />
+        <ellipse id="footR" cx="132" cy="179" rx="19" ry="11" fill="#5cbd95" />
+
+        <!-- arms -->
+        <ellipse id="armL" cx="25" cy="132" rx="15" ry="21" fill="#7fd9b6" transform="rotate(18 25 132)" />
+        <ellipse id="armR" cx="175" cy="132" rx="15" ry="21" fill="#7fd9b6" transform="rotate(-18 175 132)" />
+
+        <!-- body -->
+        <rect id="body" x="32" y="58" width="136" height="124" rx="62" ry="60" fill="url(#bodyGrad)" />
+
+        <!-- gloss highlight -->
+        <ellipse cx="66" cy="78" rx="20" ry="13" fill="#ffffff" opacity="0.35" />
+
+        <!-- blush -->
+        <circle id="cheekL" class="cheek" cx="58" cy="130" r="9" />
+        <circle id="cheekR" class="cheek" cx="142" cy="130" r="9" />
+
+        <!-- eyes -->
+        <g id="eyeL" class="eye">
+          <ellipse cx="76" cy="112" rx="15" ry="18" fill="white" />
+          <circle cx="76" cy="117" r="7.5" fill="#4a3728" />
+          <circle cx="73" cy="113" r="2.6" fill="#ffffff" />
+        </g>
+        <g id="eyeR" class="eye">
+          <ellipse cx="124" cy="112" rx="15" ry="18" fill="white" />
+          <circle cx="124" cy="117" r="7.5" fill="#4a3728" />
+          <circle cx="121" cy="113" r="2.6" fill="#ffffff" />
+        </g>
+
+        <path id="mouth" d="M88 140 Q94 148 100 140 Q106 148 112 140" stroke="#4a3728" stroke-width="3.2" fill="none" stroke-linecap="round" />
+        <text id="hatEmoji" x="100" y="20" font-size="28" text-anchor="middle"></text>
+        <text id="zzz" x="158" y="50" font-size="20" text-anchor="middle" class="hidden">💤</text>
+      </svg>
+    </div>
+    <script type="module" src="./pet.ts"></script>
+  </body>
+</html>

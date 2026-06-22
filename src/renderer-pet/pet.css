@@ -1,0 +1,136 @@
+* {
+  margin: 0;
+  padding: 0;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+html,
+body {
+  background: transparent;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+#stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+#creature {
+  position: absolute;
+  left: 5%;
+  top: 5%;
+  width: 90%;
+  height: 90%;
+  filter: drop-shadow(0 6px 6px rgba(0, 0, 0, 0.18));
+  transition: transform 0.25s ease;
+}
+
+.cheek {
+  fill: #ffb6c1;
+}
+
+.eye {
+  transform-origin: center;
+  transform-box: fill-box;
+  transition: transform 0.1s ease;
+}
+
+#zzz.hidden,
+#bubble.hidden {
+  display: none;
+}
+
+#bubble {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 96%;
+  background: white;
+  border: 2px solid #33302e;
+  border-radius: 10px;
+  padding: 3px 7px;
+  font-size: 10px;
+  font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+  color: #33302e;
+  white-space: nowrap;
+  z-index: 5;
+}
+
+/* activity animations */
+
+#stage.idle #creature {
+  animation: breathe 2.4s ease-in-out infinite;
+}
+
+#stage.walk #creature {
+  animation: bob 0.5s ease-in-out infinite;
+}
+
+#stage.sleep #creature {
+  animation: sleepSway 3s ease-in-out infinite;
+}
+#stage.sleep #zzz {
+  display: block;
+  animation: floatUp 2s ease-in-out infinite;
+}
+#stage.sleep .eye {
+  transform: scaleY(0.08);
+}
+
+#stage.happy #creature {
+  animation: bounceHappy 0.6s ease-in-out infinite;
+}
+
+#stage.sad #creature {
+  animation: droop 2s ease-in-out infinite;
+}
+
+#stage.work #creature {
+  animation: bob 0.3s ease-in-out infinite;
+}
+
+#stage.drag #creature {
+  animation: none;
+  transform: scale(1.05) rotate(-3deg);
+}
+
+@keyframes breathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.03, 0.97); }
+}
+
+@keyframes bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes bounceHappy {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-12px) scale(1.05, 0.95); }
+}
+
+@keyframes droop {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(3px) rotate(2deg); }
+}
+
+@keyframes sleepSway {
+  0%, 100% { transform: rotate(-2deg); }
+  50% { transform: rotate(2deg); }
+}
+
+@keyframes floatUp {
+  0% { opacity: 0; transform: translateY(0); }
+  50% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(-16px); }
+}
+
+@keyframes blink {
+  0%, 92%, 100% { transform: scaleY(1); }
+  96% { transform: scaleY(0.1); }
+}
