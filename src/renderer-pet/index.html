@@ -6,60 +6,186 @@
     <link rel="stylesheet" href="./pet.css" />
   </head>
   <body>
-    <div id="stage">
+    <div id="stage" class="idle">
       <div id="bubble" class="hidden"></div>
-      <svg id="creature" viewBox="0 0 200 200" width="200" height="200">
+      <div id="affection" class="hidden" aria-hidden="true">♡</div>
+      <svg id="creature" viewBox="0 0 220 220" width="220" height="220" aria-label="波波桌宠">
         <defs>
-          <linearGradient id="bodyGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop id="bodyGradTop" offset="0" stop-color="#9eeac9" />
-            <stop id="bodyGradBottom" offset="1" stop-color="#6bcfa5" />
+          <radialGradient id="bodyGrad" cx="38%" cy="26%" r="76%">
+            <stop id="bodyGradTop" offset="0" stop-color="#baf4dc" />
+            <stop id="bodyGradMid" offset="0.55" stop-color="#86ddb9" />
+            <stop id="bodyGradBottom" offset="1" stop-color="#58bd92" />
+          </radialGradient>
+          <linearGradient id="bellyGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop id="bellyGradTop" offset="0" stop-color="#fff5dd" />
+            <stop id="bellyGradBottom" offset="1" stop-color="#f7d7b3" />
           </linearGradient>
+          <radialGradient id="shadowGrad" cx="50%" cy="45%" r="50%">
+            <stop offset="0" stop-color="#2a342f" stop-opacity="0.24" />
+            <stop offset="1" stop-color="#2a342f" stop-opacity="0" />
+          </radialGradient>
         </defs>
 
-        <!-- sprout antenna -->
-        <path d="M100 62 Q96 45 100 33" stroke="#6bcfa5" stroke-width="4" fill="none" stroke-linecap="round" />
-        <ellipse cx="100" cy="28" rx="9" ry="11" fill="#bdf0a0" />
-        <ellipse cx="97" cy="24" rx="3" ry="4" fill="#e4ffd6" opacity="0.8" />
+        <ellipse id="groundShadow" cx="110" cy="202" rx="68" ry="12" fill="url(#shadowGrad)" />
 
-        <!-- ears -->
-        <circle id="earL" cx="62" cy="58" r="20" fill="#6bcfa5" />
-        <circle id="earR" cx="138" cy="58" r="20" fill="#6bcfa5" />
-        <circle cx="62" cy="58" r="11" fill="#ffb6c1" />
-        <circle cx="138" cy="58" r="11" fill="#ffb6c1" />
-
-        <!-- feet -->
-        <ellipse id="footL" cx="68" cy="179" rx="19" ry="11" fill="#5cbd95" />
-        <ellipse id="footR" cx="132" cy="179" rx="19" ry="11" fill="#5cbd95" />
-
-        <!-- arms -->
-        <ellipse id="armL" cx="25" cy="132" rx="15" ry="21" fill="#7fd9b6" transform="rotate(18 25 132)" />
-        <ellipse id="armR" cx="175" cy="132" rx="15" ry="21" fill="#7fd9b6" transform="rotate(-18 175 132)" />
-
-        <!-- body -->
-        <rect id="body" x="32" y="58" width="136" height="124" rx="62" ry="60" fill="url(#bodyGrad)" />
-
-        <!-- gloss highlight -->
-        <ellipse cx="66" cy="78" rx="20" ry="13" fill="#ffffff" opacity="0.35" />
-
-        <!-- blush -->
-        <circle id="cheekL" class="cheek" cx="58" cy="130" r="9" />
-        <circle id="cheekR" class="cheek" cx="142" cy="130" r="9" />
-
-        <!-- eyes -->
-        <g id="eyeL" class="eye">
-          <ellipse cx="76" cy="112" rx="15" ry="18" fill="white" />
-          <circle cx="76" cy="117" r="7.5" fill="#4a3728" />
-          <circle cx="73" cy="113" r="2.6" fill="#ffffff" />
-        </g>
-        <g id="eyeR" class="eye">
-          <ellipse cx="124" cy="112" rx="15" ry="18" fill="white" />
-          <circle cx="124" cy="117" r="7.5" fill="#4a3728" />
-          <circle cx="121" cy="113" r="2.6" fill="#ffffff" />
+        <g id="tailGroup">
+          <path
+            id="tail"
+            d="M156 126 C180 112 191 88 174 78 C158 68 146 87 160 97 C169 103 181 99 184 88"
+            fill="none"
+            stroke="#65caa1"
+            stroke-width="17"
+            stroke-linecap="round"
+          />
+          <path
+            id="tailShine"
+            d="M166 85 C171 82 176 83 179 87"
+            fill="none"
+            stroke="#ffffff"
+            stroke-width="4"
+            stroke-linecap="round"
+            opacity="0.45"
+          />
         </g>
 
-        <path id="mouth" d="M88 140 Q94 148 100 140 Q106 148 112 140" stroke="#4a3728" stroke-width="3.2" fill="none" stroke-linecap="round" />
-        <text id="hatEmoji" x="100" y="20" font-size="28" text-anchor="middle"></text>
-        <text id="zzz" x="158" y="50" font-size="20" text-anchor="middle" class="hidden">💤</text>
+        <g id="earLayer">
+          <path
+            id="earL"
+            d="M64 83 C43 62 43 32 70 43 C88 50 93 68 82 86 Z"
+            fill="#65caa1"
+            stroke="#3b5149"
+            stroke-width="3.5"
+            stroke-linejoin="round"
+          />
+          <path
+            id="earR"
+            d="M156 83 C177 62 177 32 150 43 C132 50 127 68 138 86 Z"
+            fill="#65caa1"
+            stroke="#3b5149"
+            stroke-width="3.5"
+            stroke-linejoin="round"
+          />
+          <path id="earInnerL" d="M68 75 C56 61 57 45 71 51 C80 55 82 66 76 78 Z" fill="#ffc2cc" />
+          <path id="earInnerR" d="M152 75 C164 61 163 45 149 51 C140 55 138 66 144 78 Z" fill="#ffc2cc" />
+        </g>
+
+        <g id="sprout">
+          <path
+            id="sproutStem"
+            d="M110 60 C105 46 106 35 113 26"
+            stroke="#58bd92"
+            stroke-width="5"
+            fill="none"
+            stroke-linecap="round"
+          />
+          <path
+            id="sproutLeafL"
+            d="M112 29 C96 15 80 19 79 34 C95 38 105 36 112 29 Z"
+            fill="#b8ed83"
+            stroke="#3b5149"
+            stroke-width="2.5"
+            stroke-linejoin="round"
+          />
+          <path
+            id="sproutLeafR"
+            d="M113 28 C129 13 147 18 148 33 C131 39 120 37 113 28 Z"
+            fill="#8fe06c"
+            stroke="#3b5149"
+            stroke-width="2.5"
+            stroke-linejoin="round"
+          />
+          <ellipse cx="101" cy="27" rx="4" ry="2.4" fill="#f3ffd8" opacity="0.7" transform="rotate(-16 101 27)" />
+        </g>
+
+        <g id="bodyWrap">
+          <ellipse id="footL" cx="78" cy="187" rx="23" ry="12" fill="#56b487" stroke="#3b5149" stroke-width="3" />
+          <ellipse id="footR" cx="142" cy="187" rx="23" ry="12" fill="#56b487" stroke="#3b5149" stroke-width="3" />
+
+          <path
+            id="armL"
+            d="M54 125 C34 129 27 146 36 159 C45 172 62 162 65 145 Z"
+            fill="#7fd9b6"
+            stroke="#3b5149"
+            stroke-width="3"
+            stroke-linejoin="round"
+          />
+          <path
+            id="armR"
+            d="M166 125 C186 129 193 146 184 159 C175 172 158 162 155 145 Z"
+            fill="#7fd9b6"
+            stroke="#3b5149"
+            stroke-width="3"
+            stroke-linejoin="round"
+          />
+
+          <path
+            id="body"
+            d="M110 55 C72 55 45 83 45 122 C45 164 73 188 110 188 C147 188 175 164 175 122 C175 83 148 55 110 55 Z"
+            fill="url(#bodyGrad)"
+            stroke="#3b5149"
+            stroke-width="4"
+            stroke-linejoin="round"
+          />
+          <path
+            id="belly"
+            d="M75 125 C75 97 90 80 110 80 C130 80 145 97 145 125 C145 153 131 169 110 169 C89 169 75 153 75 125 Z"
+            fill="url(#bellyGrad)"
+            opacity="0.72"
+          />
+          <ellipse id="bodyHighlight" cx="78" cy="82" rx="21" ry="13" fill="#ffffff" opacity="0.36" transform="rotate(-18 78 82)" />
+          <path id="foreheadShine" d="M95 68 C104 63 120 63 130 70" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round" opacity="0.24" />
+
+          <g id="face">
+            <ellipse id="cheekL" class="cheek" cx="69" cy="137" rx="11" ry="8" />
+            <ellipse id="cheekR" class="cheek" cx="151" cy="137" rx="11" ry="8" />
+
+            <g id="eyeL" class="eye">
+              <ellipse class="eyeWhite" cx="86" cy="113" rx="15" ry="18" fill="#fffdf8" />
+              <g id="pupilL" class="pupil">
+                <ellipse cx="86" cy="116" rx="8.5" ry="10.5" fill="#3f3129" />
+                <circle cx="82" cy="111" r="3" fill="#ffffff" />
+                <circle cx="90" cy="121" r="2" fill="#8ddcf7" opacity="0.85" />
+              </g>
+            </g>
+            <g id="eyeR" class="eye">
+              <ellipse class="eyeWhite" cx="134" cy="113" rx="15" ry="18" fill="#fffdf8" />
+              <g id="pupilR" class="pupil">
+                <ellipse cx="134" cy="116" rx="8.5" ry="10.5" fill="#3f3129" />
+                <circle cx="130" cy="111" r="3" fill="#ffffff" />
+                <circle cx="138" cy="121" r="2" fill="#8ddcf7" opacity="0.85" />
+              </g>
+            </g>
+
+            <path
+              id="mouth"
+              d="M94 143 C100 153 107 153 110 145 C113 153 120 153 126 143"
+              stroke="#3f3129"
+              stroke-width="4"
+              fill="none"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </g>
+
+          <g id="sparkles" opacity="0">
+            <path class="sparkle sparkleA" d="M55 101 L59 109 L67 113 L59 117 L55 125 L51 117 L43 113 L51 109 Z" fill="#fff3a6" />
+            <path class="sparkle sparkleB" d="M164 92 L167 98 L173 101 L167 104 L164 110 L161 104 L155 101 L161 98 Z" fill="#fff3a6" />
+            <circle class="sparkle sparkleC" cx="151" cy="70" r="3.5" fill="#ffffff" />
+          </g>
+
+          <g id="workMarks" opacity="0">
+            <path d="M174 77 L184 68" stroke="#4f6a60" stroke-width="4" stroke-linecap="round" />
+            <path d="M181 94 L195 92" stroke="#4f6a60" stroke-width="4" stroke-linecap="round" />
+            <path d="M46 88 L35 79" stroke="#4f6a60" stroke-width="4" stroke-linecap="round" />
+          </g>
+        </g>
+
+        <g id="zzz" class="hidden" aria-hidden="true">
+          <text x="169" y="62" font-size="20" text-anchor="middle">Z</text>
+          <text x="185" y="43" font-size="14" text-anchor="middle">Z</text>
+          <text x="197" y="28" font-size="10" text-anchor="middle">Z</text>
+        </g>
+        <text id="hatEmoji" x="110" y="46" font-size="28" text-anchor="middle"></text>
       </svg>
     </div>
     <script type="module" src="./pet.ts"></script>

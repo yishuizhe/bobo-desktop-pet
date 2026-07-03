@@ -1,4 +1,5 @@
 * {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
   user-select: none;
@@ -7,130 +8,520 @@
 
 html,
 body {
-  background: transparent;
-  overflow: hidden;
   width: 100%;
   height: 100%;
+  overflow: hidden;
+  background: transparent;
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
 }
 
 #stage {
   position: relative;
   width: 100%;
   height: 100%;
+  overflow: visible;
 }
 
 #creature {
   position: absolute;
-  left: 5%;
-  top: 5%;
-  width: 90%;
-  height: 90%;
-  filter: drop-shadow(0 6px 6px rgba(0, 0, 0, 0.18));
-  transition: transform 0.25s ease;
+  left: 1%;
+  top: 2%;
+  width: 98%;
+  height: 98%;
+  overflow: visible;
+  filter: drop-shadow(0 12px 10px rgba(30, 42, 38, 0.18));
+  transition:
+    filter 180ms ease,
+    transform 180ms ease;
+}
+
+#bodyWrap,
+#earL,
+#earR,
+#sprout,
+#tailGroup,
+#footL,
+#footR,
+#armL,
+#armR,
+#hatEmoji,
+.eye,
+.pupil,
+#workMarks,
+#sparkles {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+#tailGroup {
+  transform-origin: 30% 60%;
+}
+
+#earL {
+  transform-origin: 80% 92%;
+}
+
+#earR {
+  transform-origin: 20% 92%;
+}
+
+#sprout {
+  transform-origin: 48% 100%;
+}
+
+#hatEmoji {
+  paint-order: stroke;
+  stroke: rgba(255, 255, 255, 0.75);
+  stroke-width: 4px;
 }
 
 .cheek {
-  fill: #ffb6c1;
+  fill: #ff9db0;
+  opacity: 0.68;
+  transition: opacity 160ms ease;
 }
 
 .eye {
-  transform-origin: center;
-  transform-box: fill-box;
-  transition: transform 0.1s ease;
+  transition: transform 90ms ease;
 }
 
-#zzz.hidden,
-#bubble.hidden {
+.pupil {
+  transition: transform 140ms ease;
+}
+
+#bubble.hidden,
+#affection.hidden,
+#zzz.hidden {
   display: none;
 }
 
 #bubble {
   position: absolute;
-  top: 0;
+  top: 2%;
   left: 50%;
+  z-index: 6;
+  max-width: 92%;
+  min-width: 46px;
   transform: translateX(-50%);
-  max-width: 96%;
-  background: white;
-  border: 2px solid #33302e;
-  border-radius: 10px;
-  padding: 3px 7px;
+  padding: 5px 8px 6px;
+  border: 2px solid #3f3129;
+  border-radius: 12px;
+  background: rgba(255, 253, 248, 0.96);
+  box-shadow: 0 5px 10px rgba(45, 35, 28, 0.13);
+  color: #3f3129;
   font-size: 10px;
-  font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
-  color: #33302e;
-  white-space: nowrap;
-  z-index: 5;
+  font-weight: 700;
+  line-height: 1.25;
+  text-align: center;
+  white-space: normal;
+  animation: bubbleIn 180ms ease-out;
 }
 
-/* activity animations */
-
-#stage.idle #creature {
-  animation: breathe 2.4s ease-in-out infinite;
+#bubble::after {
+  position: absolute;
+  left: 50%;
+  bottom: -7px;
+  width: 10px;
+  height: 10px;
+  border-right: 2px solid #3f3129;
+  border-bottom: 2px solid #3f3129;
+  background: rgba(255, 253, 248, 0.96);
+  content: "";
+  transform: translateX(-50%) rotate(45deg);
 }
 
-#stage.walk #creature {
-  animation: bob 0.5s ease-in-out infinite;
+#affection {
+  position: absolute;
+  left: 50%;
+  top: 20%;
+  z-index: 7;
+  color: #ff5d85;
+  font-size: 22px;
+  font-weight: 900;
+  line-height: 1;
+  text-shadow: 0 2px 0 #fff7f0, 0 5px 10px rgba(75, 36, 45, 0.2);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
 }
 
-#stage.sleep #creature {
-  animation: sleepSway 3s ease-in-out infinite;
+#stage.show-love #affection {
+  display: block;
+  animation: lovePop 850ms ease-out both;
 }
+
+#zzz text {
+  fill: #5d6c66;
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-weight: 900;
+}
+
+#stage.idle #bodyWrap {
+  animation: breathe 2.8s ease-in-out infinite;
+}
+
+#stage.idle #tailGroup {
+  animation: tailSway 3.2s ease-in-out infinite;
+}
+
+#stage.idle #sprout {
+  animation: sproutNod 3.4s ease-in-out infinite;
+}
+
+#stage.walk #bodyWrap {
+  animation: walkBody 460ms ease-in-out infinite;
+}
+
+#stage.walk #tailGroup {
+  animation: tailWag 360ms ease-in-out infinite;
+}
+
+#stage.walk #footL {
+  animation: stepLeft 460ms ease-in-out infinite;
+}
+
+#stage.walk #footR {
+  animation: stepRight 460ms ease-in-out infinite;
+}
+
+#stage.walk #sprout {
+  animation: sproutNod 460ms ease-in-out infinite;
+}
+
+#stage.sleep #bodyWrap {
+  animation: sleepSway 3.8s ease-in-out infinite;
+}
+
+#stage.sleep #tailGroup {
+  animation: sleepyTail 3.8s ease-in-out infinite;
+}
+
 #stage.sleep #zzz {
   display: block;
-  animation: floatUp 2s ease-in-out infinite;
-}
-#stage.sleep .eye {
-  transform: scaleY(0.08);
+  animation: floatUp 2.2s ease-in-out infinite;
 }
 
-#stage.happy #creature {
-  animation: bounceHappy 0.6s ease-in-out infinite;
+#stage.sleep .eye {
+  transform: scaleY(0.1);
+}
+
+#stage.sleep .pupil {
+  opacity: 0;
+}
+
+#stage.sleep .cheek {
+  opacity: 0.34;
+}
+
+#stage.happy #bodyWrap {
+  animation: bounceHappy 620ms cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
+}
+
+#stage.happy #tailGroup {
+  animation: tailWag 260ms ease-in-out infinite;
+}
+
+#stage.happy #earL {
+  animation: leftEarWiggle 620ms ease-in-out infinite;
+}
+
+#stage.happy #earR {
+  animation: rightEarWiggle 620ms ease-in-out infinite;
+}
+
+#stage.happy #sparkles {
+  opacity: 1;
+}
+
+#stage.happy .sparkle {
+  animation: sparklePulse 800ms ease-in-out infinite;
+}
+
+#stage.happy .sparkleB {
+  animation-delay: 120ms;
+}
+
+#stage.happy .sparkleC {
+  animation-delay: 240ms;
 }
 
 #stage.sad #creature {
-  animation: droop 2s ease-in-out infinite;
+  filter: drop-shadow(0 8px 7px rgba(30, 42, 38, 0.14)) saturate(0.82);
 }
 
-#stage.work #creature {
-  animation: bob 0.3s ease-in-out infinite;
+#stage.sad #bodyWrap {
+  animation: droop 2.4s ease-in-out infinite;
+}
+
+#stage.sad #earL {
+  transform: rotate(-8deg) translateY(4px);
+}
+
+#stage.sad #earR {
+  transform: rotate(8deg) translateY(4px);
+}
+
+#stage.sad #tailGroup {
+  transform: rotate(-14deg) translateY(5px);
+}
+
+#stage.sad .cheek {
+  opacity: 0.28;
+}
+
+#stage.work #bodyWrap {
+  animation: workBob 340ms ease-in-out infinite;
+}
+
+#stage.work #workMarks {
+  opacity: 1;
+  animation: workBlink 680ms steps(2, end) infinite;
+}
+
+#stage.work #tailGroup {
+  animation: tailWag 500ms ease-in-out infinite;
 }
 
 #stage.drag #creature {
+  filter: drop-shadow(0 18px 13px rgba(30, 42, 38, 0.2));
+  transform: rotate(-2deg) scale(1.02);
+}
+
+#stage.drag #bodyWrap {
   animation: none;
-  transform: scale(1.05) rotate(-3deg);
+  transform: scale(1.04) rotate(-3deg);
+}
+
+#stage.drag #tailGroup {
+  animation: tailWag 220ms ease-in-out infinite;
+}
+
+#stage.blink:not(.sleep) .eye {
+  transform: scaleY(0.12);
+}
+
+@keyframes bubbleIn {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, 5px) scale(0.92);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(-50%, 0) scale(1);
+  }
+}
+
+@keyframes lovePop {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, 4px) scale(0.4) rotate(-12deg);
+  }
+
+  30% {
+    opacity: 1;
+    transform: translate(-50%, -14px) scale(1.18) rotate(6deg);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -40px) scale(0.92) rotate(12deg);
+  }
 }
 
 @keyframes breathe {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.03, 0.97); }
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+
+  50% {
+    transform: translateY(2px) scale(1.025, 0.985);
+  }
 }
 
-@keyframes bob {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
+@keyframes tailSway {
+  0%,
+  100% {
+    transform: rotate(-3deg);
+  }
+
+  50% {
+    transform: rotate(8deg);
+  }
 }
 
-@keyframes bounceHappy {
-  0%, 100% { transform: translateY(0) scale(1); }
-  50% { transform: translateY(-12px) scale(1.05, 0.95); }
+@keyframes sleepyTail {
+  0%,
+  100% {
+    transform: rotate(-8deg);
+  }
+
+  50% {
+    transform: rotate(-2deg);
+  }
 }
 
-@keyframes droop {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(3px) rotate(2deg); }
+@keyframes tailWag {
+  0%,
+  100% {
+    transform: rotate(-11deg);
+  }
+
+  50% {
+    transform: rotate(14deg);
+  }
+}
+
+@keyframes sproutNod {
+  0%,
+  100% {
+    transform: rotate(-2deg);
+  }
+
+  50% {
+    transform: rotate(5deg);
+  }
+}
+
+@keyframes walkBody {
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(-1deg);
+  }
+
+  50% {
+    transform: translate(0, -7px) rotate(1deg);
+  }
+}
+
+@keyframes stepLeft {
+  0%,
+  100% {
+    transform: translateX(-2px);
+  }
+
+  50% {
+    transform: translateX(5px) translateY(-1px);
+  }
+}
+
+@keyframes stepRight {
+  0%,
+  100% {
+    transform: translateX(5px) translateY(-1px);
+  }
+
+  50% {
+    transform: translateX(-2px);
+  }
 }
 
 @keyframes sleepSway {
-  0%, 100% { transform: rotate(-2deg); }
-  50% { transform: rotate(2deg); }
+  0%,
+  100% {
+    transform: rotate(-2deg) translateY(1px);
+  }
+
+  50% {
+    transform: rotate(2deg) translateY(3px);
+  }
 }
 
 @keyframes floatUp {
-  0% { opacity: 0; transform: translateY(0); }
-  50% { opacity: 1; }
-  100% { opacity: 0; transform: translateY(-16px); }
+  0% {
+    opacity: 0;
+    transform: translateY(10px) scale(0.9);
+  }
+
+  45% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-18px) scale(1.08);
+  }
 }
 
-@keyframes blink {
-  0%, 92%, 100% { transform: scaleY(1); }
-  96% { transform: scaleY(0.1); }
+@keyframes bounceHappy {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+
+  48% {
+    transform: translateY(-13px) scale(1.04, 0.96);
+  }
+
+  68% {
+    transform: translateY(2px) scale(0.97, 1.03);
+  }
+}
+
+@keyframes leftEarWiggle {
+  0%,
+  100% {
+    transform: rotate(-3deg);
+  }
+
+  50% {
+    transform: rotate(8deg);
+  }
+}
+
+@keyframes rightEarWiggle {
+  0%,
+  100% {
+    transform: rotate(3deg);
+  }
+
+  50% {
+    transform: rotate(-8deg);
+  }
+}
+
+@keyframes sparklePulse {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scale(0.8) rotate(0deg);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.12) rotate(12deg);
+  }
+}
+
+@keyframes droop {
+  0%,
+  100% {
+    transform: translateY(5px) rotate(-1deg) scale(0.99, 1.01);
+  }
+
+  50% {
+    transform: translateY(8px) rotate(1deg) scale(0.985, 1.015);
+  }
+}
+
+@keyframes workBob {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-2deg);
+  }
+
+  50% {
+    transform: translateY(-5px) rotate(2deg);
+  }
+}
+
+@keyframes workBlink {
+  0%,
+  100% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
+  }
 }
