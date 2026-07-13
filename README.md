@@ -1,5 +1,8 @@
 # 波波桌宠 (deskpet)
 
+[![CI](https://github.com/yishuizhe/bobo-desktop-pet/actions/workflows/ci.yml/badge.svg)](https://github.com/yishuizhe/bobo-desktop-pet/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
 原创跨平台桌面养成宠物，灵感来自 QQ宠物，但形象/数值/玩法均为原创，无服务器、纯本地存档。
 
 ## 开发运行
